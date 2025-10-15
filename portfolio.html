@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Творчество</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">ТВОРЧЕСТВО</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="portfolio.html" class="active">Творчество</a></li>
+                <li><a href="shop.html">Магазин</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Портфолио</h1>
+            <p>Коллекция стихов и живописных работ</p>
+        </div>
+    </section>
+
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="portfolio-tabs">
+                <button class="tab-btn active" data-tab="poetry">Поэзия</button>
+                <button class="tab-btn" data-tab="art">Живопись</button>
+                <button class="tab-btn" data-tab="books">Сборники</button>
+            </div>
+
+            <div class="portfolio-grid" id="poetry">
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <h3>Осенние Размышления</h3>
+                    <p>Лирика о времени и памяти</p>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                    <h3>Городские Мотивы</h3>
+                    <p>Стихи о современной жизни</p>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                    <h3>Природные Элегии</h3>
+                    <p>Воспевание красоты природы</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>ТВОРЧЕСТВО</h3>
+                    <p>Искусство слова и образа</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Следите за творчеством</h4>
+                    <div class="social-links">
+                        <a href="https://vk.com" target="_blank" class="social-link">
+                            <i class="fab fa-vk"></i> VK
+                        </a>
+                        <a href="https://t.me" target="_blank" class="social-link">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                        <a href="https://youtube.com" target="_blank" class="social-link">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Все права защищены</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
