@@ -80,7 +80,7 @@ body {
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)),
-        url('https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1600') center/cover;
+        url(images/photo_2025-10-17_17-23-27.jpg) center/cover;
     text-align: center;
     color: white;
     position: relative;
