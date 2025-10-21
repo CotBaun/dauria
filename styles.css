@@ -5,12 +5,23 @@
     box-sizing: border-box;
 }
 
-:root {
+/*:root {
     --primary-color: #9B8B7E;
     --ivory: #F7F5F2;
     --ivory-dark: #EAE6E1;
     --text-dark: #3A3530;
     --text-light: #7E7671;
+    --border-color: #D4CFC9;
+}*/
+
+:root {
+    --primary: #8B7355;
+    /* Один основной цвет */
+    --background: #F5F0E8;
+    /* Светлый фон */
+    --ivory: #F5F0E8;
+    --text: #3C3530;
+    /* Тёмный текст */
     --border-color: #D4CFC9;
 }
 
@@ -25,6 +36,13 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.section-fullscreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Навигация */
@@ -49,7 +67,7 @@ body {
 .logo {
     font-size: 40px;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #0c0a08;
     letter-spacing: 2px;
 }
 
@@ -61,17 +79,34 @@ body {
 
 .nav-menu a {
     text-decoration: none;
-    color: var(--text-dark);
+    color: #3C3530;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: all 0.3s;
     padding: 8px 0;
+    position: relative;
 }
 
 .nav-menu a:hover,
 .nav-menu a.active {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
+    color: #8B7355;
 }
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #8B7355;
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+    width: 100%;
+}
+
 
 /* Главный баннер */
 .hero {
@@ -147,6 +182,30 @@ body {
 }
 
 /* Принципы (3 карточки) */
+
+.principle-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Тёмный оверлей при наведении */
+.principle-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(196, 193, 190, 0.9);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.principle-card:hover::after {
+    opacity: 1;
+}
+
+
 .principles {
     padding: 100px 0;
     background-color: var(--ivory-dark);

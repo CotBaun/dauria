@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dauriaart NFT Collection</title>
+    <!-- ВОТ СЮДА ВСТАВЬТЕ КОД GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <!-- КОНЕЦ КОДА GOOGLE FONTS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Gentium Plus", sans-serif;
+            background: linear-gradient(135deg, #de9d96 0%, #d8d7c8 100%);
+            color: #3C3530;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .collection-link {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .view-collection-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #fff;
+            color: #3C3530;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .view-collection-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: #f0f0f0 50%;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nft-card {
+            width: 280px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nft-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nft-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nft-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .nft-card p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .nft-id {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #ffcccc;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Стили для навигационного меню */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3C3530;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-menu a {
+            color: #3C3530;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #de9d96;
+        }
+
+        .nav-menu a.active {
+            color: #cf756c;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #de9d96;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        /* Добавить отступ сверху для body, чтобы контент не прятался под меню */
+        body {
+            padding-top: 80px;
+            /* Высота навигации + отступ */
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-menu {
+                gap: 20px;
+                font-size: 0.9rem;
+            }
+
+            .nav-menu a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">ДАУРИЯ</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="portfolio.html">Творчество</a></li>
+                <li><a href="shop.html">Магазин</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+                <li><a href="nft-html.html" class="active">Коллекции</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Dauria Art NFT Collection</h1>
+        <p>Моя коллекция на Flow Blockchain</p>
+    </header>
+
+    <div class="collection-link">
+        <a href="https://www.flowty.io/collection/0x7d8cb069b8d4e713/Dauriaart=drop" target="_blank"
+            class="view-collection-btn">
+            Посмотреть на Flowty →
+        </a>
+    </div>
+
+    <div id="loading" class="loading">
+        Загрузка коллекции...
+    </div>
+
+    <div id="error" class="error" style="display: none;">
+        Не удалось загрузить NFT. Попробуйте позже.
+    </div>
+
+    <main>
+        <div id="nft-gallery" class="gallery-grid">
+            <!-- NFT будут загружены здесь -->
+        </div>
+    </main>
+
+    <script>
+        // Простой подход: используем статические данные
+        // Замените это на ваши реальные NFT данные
+        const nftsData = [
+            {
+                id: 1,
+                name: "DAURIA #1",
+                description: "Первый NFT из коллекции Dauriaart",
+                image: "https://flowty-public.mypinata.cloud/ipfs/Qmcb13DAxKxyovT91gRWV65gSowkpKXzEg4pA1eLQjTn8o?pinataGatewayToken=xFpPpu5fb5PZMLV6RF8ueOm08-BkzG5BLYJf1jVw1NL8RUORAi5yj3BwsexCJWIz",
+                flowtyUrl: "https://www.flowty.io/collection/0x7d8cb069b8d4e713/Dauriaart"
+            },
+            {
+                id: 2,
+                name: "DAURIA #2",
+                description: "Второй NFT из коллекции Dauriaart",
+                image: "https://flowty-public.mypinata.cloud/ipfs/Qmcb13DAxKxyovT91gRWV65gSowkpKXzEg4pA1eLQjTn8o?pinataGatewayToken=xFpPpu5fb5PZMLV6RF8ueOm08-BkzG5BLYJf1jVw1NL8RUORAi5yj3BwsexCJWIz",
+                flowtyUrl: "https://www.flowty.io/collection/0x7d8cb069b8d4e713/Dauriaart"
+            },
+            {
+                id: 3,
+                name: "DAURIA #3",
+                description: "Третий NFT из коллекции Dauriaart",
+                image: "https://flowty-public.mypinata.cloud/ipfs/Qmcb13DAxKxyovT91gRWV65gSowkpKXzEg4pA1eLQjTn8o?pinataGatewayToken=xFpPpu5fb5PZMLV6RF8ueOm08-BkzG5BLYJf1jVw1NL8RUORAi5yj3BwsexCJWIz",
+                flowtyUrl: "https://www.flowty.io/collection/0x7d8cb069b8d4e713/Dauriaart"
+            }
+        ];
+
+        function displayNFTs() {
+            const gallery = document.getElementById('nft-gallery');
+            const loading = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+
+            try {
+                loading.style.display = 'none';
+
+                if (nftsData.length === 0) {
+                    errorDiv.style.display = 'block';
+                    errorDiv.textContent = 'Коллекция пока пуста. Добавьте NFT в nftsData.';
+                    return;
+                }
+
+                nftsData.forEach(nft => {
+                    const nftCard = document.createElement('div');
+                    nftCard.className = 'nft-card';
+                    nftCard.onclick = () => window.open(nft.flowtyUrl, '_blank');
+
+                    nftCard.innerHTML = `
+            <img src="${nft.image}" alt="${nft.name}" onerror="this.src='https://via.placeholder.com/400x400/667eea/ffffff?text=No+Image'"/>
+            <h3>${nft.name}</h3>
+            <p>${nft.description}</p>
+            <p class="nft-id">ID: ${nft.id}</p>
+          `;
+
+                    gallery.appendChild(nftCard);
+                });
+            } catch (error) {
+                console.error('Ошибка при отображении NFT:', error);
+                loading.style.display = 'none';
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = 'Произошла ошибка при загрузке NFT.';
+            }
+        }
+
+        // Запуск при загрузке страницы
+        window.addEventListener('DOMContentLoaded', displayNFTs);
+    </script>
+</body>
+
+</html>
